@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 import ProjectCard from '@/components/ProjectCard';
 import FadeIn from '@/components/FadeIn';
-import { projects } from '@/lib/projects';
+import { getAllProjects } from '@/lib/mdx';
+import { projects as fallbackProjects } from '@/lib/projects';
 
 export const metadata: Metadata = {
   title: 'Projects | Raj Thapliyal',
@@ -9,6 +10,23 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
+  // Get projects from MDX files, fallback to lib/projects if none exist
+  const mdxProjects = getAllProjects();
+  
+  // Map MDX projects to the format expected by ProjectCard
+  const projects = mdxProjects.length > 0
+    ? mdxProjects.map((p) => ({
+        id: p.slug,
+        slug: p.slug,
+        title: p.frontmatter.title,
+        description: p.frontmatter.description,
+        tags: p.frontmatter.tags,
+        link: p.frontmatter.link,
+        github: p.frontmatter.github,
+        featured: p.frontmatter.featured,
+      }))
+    : fallbackProjects.map((p) => ({ ...p, slug: p.id }));
+
   return (
     <div className="min-h-screen pt-24 pb-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">

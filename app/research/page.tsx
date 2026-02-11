@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 import ResearchCard from '@/components/ResearchCard';
 import FadeIn from '@/components/FadeIn';
-import { research } from '@/lib/research';
+import { getAllResearch } from '@/lib/mdx';
+import { research as fallbackResearch } from '@/lib/research';
 
 export const metadata: Metadata = {
   title: 'Research | Raj Thapliyal',
@@ -9,6 +10,25 @@ export const metadata: Metadata = {
 };
 
 export default function ResearchPage() {
+  // Get research from MDX files, fallback to lib/research if none exist
+  const mdxResearch = getAllResearch();
+  
+  // Map MDX research to the format expected by ResearchCard
+  const research = mdxResearch.length > 0
+    ? mdxResearch.map((r) => ({
+        id: r.slug,
+        slug: r.slug,
+        title: r.frontmatter.title,
+        abstract: r.frontmatter.abstract,
+        date: r.frontmatter.date,
+        tags: r.frontmatter.tags,
+        publication: r.frontmatter.publication,
+        pdfLink: r.frontmatter.pdfLink,
+        externalLink: r.frontmatter.externalLink,
+        coAuthors: r.frontmatter.coAuthors,
+      }))
+    : fallbackResearch.map((r) => ({ ...r, slug: r.id }));
+
   return (
     <div className="min-h-screen pt-24 pb-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">

@@ -71,3 +71,90 @@ a {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+
+/* Prose overrides for MDX content */
+.prose {
+  --tw-prose-body: var(--text-secondary);
+  --tw-prose-headings: var(--text-primary);
+  --tw-prose-links: var(--accent);
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--text-primary);
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+.prose h1:first-child,
+.prose h2:first-child {
+  margin-top: 0;
+}
+
+.prose p {
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 1.25em;
+}
+
+.prose ul,
+.prose ol {
+  color: var(--text-secondary);
+  margin-bottom: 1.25em;
+}
+
+.prose li {
+  margin-bottom: 0.5em;
+}
+
+.prose strong {
+  color: var(--text-primary);
+}
+
+/* Code syntax highlighting */
+.hljs {
+  background: transparent !important;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link {
+  color: #f59e0b;
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-name,
+.hljs-type,
+.hljs-attribute,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: #fbbf24;
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion,
+.hljs-meta {
+  color: #6b7280;
+}
+
+.hljs-number,
+.hljs-regexp,
+.hljs-literal,
+.hljs-link {
+  color: #f472b6;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #22d3ee;
+}

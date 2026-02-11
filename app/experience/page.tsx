@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 import TimelineItem from '@/components/TimelineItem';
 import FadeIn from '@/components/FadeIn';
-import { experience } from '@/lib/experience';
+import { getAllExperience } from '@/lib/mdx';
+import { experience as fallbackExperience } from '@/lib/experience';
 
 export const metadata: Metadata = {
   title: 'Experience | Raj Thapliyal',
@@ -9,6 +10,26 @@ export const metadata: Metadata = {
 };
 
 export default function ExperiencePage() {
+  // Get experience from MDX files, fallback to lib/experience if none exist
+  const mdxExperience = getAllExperience();
+  
+  // Map MDX experience to the format expected by TimelineItem
+  const experience = mdxExperience.length > 0
+    ? mdxExperience.map((e) => ({
+        id: e.slug,
+        slug: e.slug,
+        role: e.frontmatter.title,
+        company: e.frontmatter.company,
+        companyUrl: e.frontmatter.companyUrl,
+        location: e.frontmatter.location,
+        startDate: e.frontmatter.startDate,
+        endDate: e.frontmatter.endDate,
+        description: e.frontmatter.description,
+        achievements: e.frontmatter.achievements,
+        skills: e.frontmatter.skills,
+      }))
+    : fallbackExperience.map((e) => ({ ...e, slug: e.id }));
+
   return (
     <div className="min-h-screen pt-24 pb-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
