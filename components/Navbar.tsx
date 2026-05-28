@@ -10,6 +10,7 @@ const navLinks = [
   { href: '/research', label: 'Research' },
   { href: '/startups', label: 'Startups' },
   { href: '/experience', label: 'Experience' },
+  { href: '/resume', label: 'Resume' },
 ];
 
 export default function Navbar() {
